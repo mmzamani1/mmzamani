@@ -82,8 +82,16 @@ WSGI_APPLICATION = 'mmzamani.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'gracious_morse',
+        'USER': 'root',
+        'PASSWORD': 'wMCrKJZaHK36YOCkSGzZbCd6',
+        'HOST': 'mmzamani-db',  
+        'PORT': '3306',  
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
