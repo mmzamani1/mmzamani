@@ -248,8 +248,8 @@ def api_item(request):
             if user.is_authenticated:
                 user = request.user
                 
-        item = Item.objects.create(user=user , title=title, starting_bid=starting_bid, description=description, category=category, image=image)
-        item.save()
+        item = Item.objects.get_or_create(user=user , title=title, starting_bid=starting_bid, description=description, category=category, image=image)
+        
         
         return HttpResponseRedirect(reverse("items", args=('all',)))
 
