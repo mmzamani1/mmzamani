@@ -1,0 +1,64 @@
+{% extends "auction/template.html" %}
+{% load static %}
+
+{% block title %} API Listings {% endblock title %}
+
+{% block body %}
+<div id="pagewrap">
+
+    <div class="gallery">
+        {% for item in page_items %}
+
+        <a class="image">
+            <div class="item-gallery">
+                <img src="{{ item.image }}" />
+                <p>{{ item.title }}</p>
+                <p>{{ item.price }}$</p>
+                <p>{{ item.description }}</p>
+                <p>in <b>{{ item.category}}</b></p>
+                <p>
+                    <form action="{% url 'apiitem' %}" class="post-form" method="post">
+                        {% csrf_token %}
+                        <!-- Hidden inputs to send the current item's data -->
+                        <input type="hidden" name="title" value="{{ item.title }}">
+                        <input type="hidden" name="price" value="{{ item.price }}">
+                        <input type="hidden" name="starting_bid" value="{{ item.starting_bid }}">
+                        <input type="hidden" name="description" value="{{ item.description }}">
+                        <input type="hidden" name="category" value="{{ item.category }}">
+                        <input type="hidden" name="image" value="{{ item.image }}">
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3"><b>Add to Listings</b></button>
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </a>
+        {% empty %}
+            <div>
+                <li>No Active item</li>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_items.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_items.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_items.number }} of {{ page_items.paginator.num_pages }}.
+        </span>
+
+        {% if page_items.has_next %}
+            <a href="?page={{ page_items.next_page_number }}">Next</a>
+            <a href="?page={{ page_items.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock body %}

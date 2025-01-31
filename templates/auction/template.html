@@ -1,0 +1,128 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'auction/fonts/icomoon/style.css' %}">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'auction/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'auction/css/bootstrap.min.css' %}">
+
+  <!-- Style -->
+  <link rel="stylesheet" href="{% static 'auction/style.css' %}">
+  <link rel="stylesheet" href="{% static 'auction/item.css' %}">
+
+  {% block style %}
+  {% endblock style %}
+  
+  <title>
+    {% block title %}
+    {% endblock title %}
+  </title>
+</head>
+
+<body>
+  
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div> <!-- .site-mobile-menu -->
+  
+  <div class="content">
+  
+    <!-- NAVBAR -->
+    <header class="site-navbar mt-3">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="site-logo col-6"><a href="{% url 'auction_home' %}">Auction</a></div>
+  
+          <nav class="mx-auto site-navigation">
+            <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+              <li><a href="{% url 'auction_home' %}" class="nav-link active">Home</a></li>
+              <li class="has-children">
+                <a>Item Listings</a>
+                <ul class="dropdown">
+                  <li><a href="{% url 'items' 'all' %}">Active Listings</a></li>
+                  {% if user.is_authenticated %}
+                  <li><a href="{% url 'useritems' %}">My Listings</a></li>
+                  <li><a href="{% url 'postitem' %}">Post An Item</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              <li class="has-children">
+                <a>Category</a>
+                <ul class="dropdown">
+                  {% for category in category_list %}
+  
+                    <li><a href="{% url 'items' category.name %}">{{ category.name }}</a></li>
+  
+                  {% endfor %}
+  
+                </ul>
+              </li>
+              
+              <li><a href="{% url 'about' %}">About</a></li>
+           
+              {% if user.is_authenticated %}
+              <li class="d-lg-none"><a href="{% url 'postitem' %}"><span class="mr-2">+</span> Post an Item</a></li>
+              <li class="d-lg-none"><a href="{% url 'logout' %}">Log Out</a></li>
+              {% else %}
+              <li class="d-lg-none"><a href="{% url 'login' %}">Log In</a></li>
+              {% endif %}
+  
+            </ul>
+          </nav>
+  
+          <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+            <div class="ml-auto">
+              {% if user.is_authenticated %}
+              <a href="{% url 'postitem' %}" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span
+                  class="mr-2 icon-add"></span>Post an Item</a>
+                  <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                      class="mr-2 icon-lock_open"></span>Log Out</a>
+              {% else %}
+              <a href="{% url 'login' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                class="mr-2 icon-lock_outline"></span>Log In</a>
+              {% endif %}
+            </div>
+            <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+          </div>
+  
+        </div>
+      </div>
+    </header>
+
+    <div class="body-contents">
+      {% block body %}
+      {% endblock body %}
+    </div>
+
+  </div>
+
+
+  <script src="{% static 'auction/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'auction/js/popper.min.js' %}"></script>
+  <script src="{% static 'auction/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'auction/js/jquery.sticky.js' %}"></script>
+  <script src="{% static 'auction/js/main.js' %}"></script>
+
+
+  {% block script %}
+  {% endblock script %}
+
+</body>
+
+</html>

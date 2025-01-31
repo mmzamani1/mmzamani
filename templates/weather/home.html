@@ -1,0 +1,47 @@
+{% extends "weather/template.html" %}
+{% load static %}
+
+{% block bodyContent %}
+
+<div class="weather-container">
+    <h1>Weather App</h1>
+
+    
+    
+    
+    
+    
+    <div class="location">{{ weatherData.location.name }}</div>
+    <div class="temperature">{{ weatherData.current.temp_c }}&deg;C</div>
+    <div class="icon"><img src="{{ weatherData.current.condition.icon }}"></div>
+    <div class="condition">{{ weatherData.current.condition.text }}</div>
+    <div class="details">
+        <div class="detail-item">Humidity: {{ weatherData.current.humidity }}%</div>
+        <div class="detail-item">Wind: {{ weatherData.current.wind_kph }} km/h</div>
+    </div>
+    <div class="day-night">Day 8° / Night 1°</div>
+    
+    <div class="forecast">
+        <div class="forecast-item">
+            <div class="forecast-day">{{ forecastData.forecast.forecastday.1.date }}</div>
+            <div class="icon"><img src="{{ forecastData.forecast.forecastday.1.day.condition.icon }}"></div>
+            <div class="forecast-temp">{{ forecastData.forecast.forecastday.1.day.mintemp_c }}&deg;C / {{ forecastData.forecast.forecastday.1.day.maxtemp_c }}&deg;C</div>
+        </div>
+        <div class="forecast-item">
+            <div class="forecast-day">{{ forecastData.forecast.forecastday.2.date }}</div>
+            <div class="icon"><img src="{{ forecastData.forecast.forecastday.2.day.condition.icon }}"></div>
+            <div class="forecast-temp">{{ forecastData.forecast.forecastday.2.day.mintemp_c }}&deg;C / {{ forecastData.forecast.forecastday.2.day.maxtemp_c }}&deg;C</div>
+        </div>
+        <div class="forecast-item">
+            <div class="forecast-day">{{ forecastData.forecast.forecastday.3.date }}</div>
+            <div class="icon"><img src="{{ forecastData.forecast.forecastday.3.day.condition.icon }}"></div>
+            <div class="forecast-temp">{{ forecastData.forecast.forecastday.2.day.mintemp_c }}&deg;C / {{ forecastData.forecast.forecastday.2.day.maxtemp_c }}&deg;C</div>
+        </div>
+    </div>
+    <div>{{ weatherData.location.localtime }}</div> 
+
+</div>
+
+
+
+{% endblock bodyContent %}

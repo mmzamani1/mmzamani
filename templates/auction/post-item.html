@@ -1,0 +1,61 @@
+{% extends "auction/template.html" %}
+{% load static %}
+
+{% block title %} Post an Item{% endblock title %}
+
+{% block body %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <form action="{% url 'postitem' %}" class="post-form" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Title" required name="Title">
+                        </div>
+
+                        <div class="d-md-flex">
+                            <div class="form-group w-40">
+                                <input type="number" class="form-control" placeholder="Starting Bid" required
+                                    name="Starting-Bid" step=0.01>
+                            </div>
+                            <div class="form-group w-60">
+                                <select class="select-box" placeholder="Category" name="Category" >
+                                    <option value="">Select Category</option>
+                                    {% for category in category_list %}
+                                        <option value="{{ category }}">{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="url" class="form-control" placeholder="Image URL"  name="Image-URL">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Description" name="Description"
+                                rows="5"></textarea>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Post</button>
+                        </div>
+                        <div class="text-md-left">
+                            <a href="{% url 'apiitem' %}">Get Items From API Item List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
